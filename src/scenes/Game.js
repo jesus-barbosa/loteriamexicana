@@ -57,6 +57,7 @@ export default class Game extends Phaser.Scene {
     this.intervalBtnTexts = [];
     this.cardLoader = new CardLoader(this);
     this.loadingCard = false;
+    this.firstCardSpoken = false;
 
     // Fondo decorativo con gradiente
     this.bgGraphics = this.add.graphics();
@@ -552,6 +553,11 @@ export default class Game extends Phaser.Scene {
     this.isRunning = true;
     this.isPaused = false;
 
+    // iOS: speak first card + beep DURING gesture context
+    this.playBeep();
+    this.speak(this.deck[0].name);
+    this.firstCardSpoken = true;
+
     this.historyContainer.removeAll(true);
     this.historyContainer.y = this.panelY + this.panelPadding + 20;
 
@@ -586,6 +592,7 @@ export default class Game extends Phaser.Scene {
         count++;
         const index = Phaser.Math.Between(0, CARDS.length - 1);
         this.cardName.setText(CARDS[index].name);
+        this.playBeep();
 
         // Efecto visual de barajeo
         this.tweens.add({
@@ -640,7 +647,10 @@ export default class Game extends Phaser.Scene {
       const card = this.deck[this.currentIndex];
       this.cardName.setText(card.name);
       this.playBeep();
-      this.speak(card.name);
+      if (!this.firstCardSpoken) {
+        this.speak(card.name);
+      }
+      this.firstCardSpoken = false;
 
       const textureKey = `card_${card.id}`;
       if (this.textures.exists(textureKey)) {
