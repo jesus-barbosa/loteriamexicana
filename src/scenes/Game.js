@@ -38,7 +38,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = w * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const titleSize = Math.min(90, Math.floor(w / 5));
+    const titleSize = Math.min(130, Math.floor(w / 3.5));
     const btnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const btnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const btnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -65,7 +65,7 @@ export default class Game extends Phaser.Scene {
     this.drawBackground(w, h);
 
     // Título con estilo festivo
-    this.title = this.add.text(w / 2, 35, 'Lotería Mexicana', {
+    this.title = this.add.text(this.gameCx, 35, 'Lotería Mexicana', {
       font: `bold ${titleSize}px Georgia, "Times New Roman", serif`,
       fill: COLORS.textLight,
       stroke: '#000000',
@@ -77,7 +77,7 @@ export default class Game extends Phaser.Scene {
     // Línea decorativa bajo el título
     this.titleLine = this.add.graphics();
     this.titleLine.lineStyle(2, COLORS.separator, 0.8);
-    this.titleLine.lineBetween(w / 2 - 100, 55, w / 2 + 100, 55);
+    this.titleLine.lineBetween(this.gameCx - 100, 55, this.gameCx + 100, 55);
 
     // Contador de progreso
     this.counterText = this.add.text(this.gameCx, 68, '', {
@@ -368,7 +368,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = newW * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const newTitleSize = Math.min(90, Math.floor(newW / 5));
+    const newTitleSize = Math.min(130, Math.floor(newW / 3.5));
     const newBtnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const newBtnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const newBtnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -379,11 +379,11 @@ export default class Game extends Phaser.Scene {
 
     this.drawBackground(newW, newH);
 
-    this.title.setPosition(newW / 2, 35);
+    this.title.setPosition(this.gameCx, 35);
     this.title.setFontSize(newTitleSize);
     this.titleLine.clear();
     this.titleLine.lineStyle(2, COLORS.separator, 0.8);
-    this.titleLine.lineBetween(newW / 2 - 100, 55, newW / 2 + 100, 55);
+    this.titleLine.lineBetween(this.gameCx - 100, 55, this.gameCx + 100, 55);
 
     this.counterText.setPosition(this.gameCx, 68);
     this.counterText.setFontSize(newCounterSize);
