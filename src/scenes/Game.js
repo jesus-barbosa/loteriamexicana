@@ -29,7 +29,6 @@ export default class Game extends Phaser.Scene {
 
   create() {
     this.beepCtx = null;
-    this._silenceTimer = null;
 
     const cy = this.cameras.main.centerY;
     const w = this.cameras.main.width;
@@ -461,32 +460,16 @@ export default class Game extends Phaser.Scene {
       this.beepCtx = new AudioCtx();
     }
     if (this.beepCtx && this.beepCtx.state === 'suspended') {
-      this.beepCtx.resume();
+      this.beepCtx.resume().then(() => {
+        try {
+          const buf = this.beepCtx.createBuffer(1, 1, 22050);
+          const src = this.beepCtx.createBufferSource();
+          src.buffer = buf;
+          src.connect(this.beepCtx.destination);
+          src.start(0);
+        } catch (_) {}
+      });
     }
-
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.getVoices();
-    }
-  }
-
-  _startSilenceLoop() {
-    if (!window.speechSynthesis || !this.isRunning) return;
-    clearTimeout(this._silenceTimer);
-    const tick = () => {
-      if (!this.isRunning) return;
-      const u = new SpeechSynthesisUtterance(' ');
-      u.volume = 0;
-      u.onend = () => tick();
-      u.onerror = () => tick();
-      window.speechSynthesis.speak(u);
-    };
-    tick();
-  }
-
-  _stopSilenceLoop() {
-    clearTimeout(this._silenceTimer);
-    this._silenceTimer = null;
   }
 
   playBeep() {
@@ -526,9 +509,6 @@ export default class Game extends Phaser.Scene {
         || null;
     }
 
-    utter.onend = () => this._startSilenceLoop();
-    utter.onerror = () => this._startSilenceLoop();
-
     window.speechSynthesis.speak(utter);
   }
 
@@ -546,7 +526,12 @@ export default class Game extends Phaser.Scene {
   }
 
   startGame() {
-    // iOS: prime audio + speech during user gesture (obligatorio en iOS)
+    // iOS: desbloquear speechSynthesis con utterance vacío durante gesto
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+    }
+    // iOS: calentar AudioContext con buffer vacío durante gesto
     this.resumeAudio();
 
     this.deck = this.shuffleDeck([...CARDS]);
@@ -554,9 +539,6 @@ export default class Game extends Phaser.Scene {
     this.drawnCards = [];
     this.isRunning = true;
     this.isPaused = false;
-
-    // iOS: iniciar cadena de silencio para mantener vivo el canal de speech
-    this._startSilenceLoop();
 
     this.historyContainer.removeAll(true);
     this.historyContainer.y = this.panelY + this.panelPadding + 20;
@@ -749,7 +731,6 @@ export default class Game extends Phaser.Scene {
   stopGame() {
     this.isRunning = false;
     this.isPaused = false;
-    this._stopSilenceLoop();
     if (this.timer) {
       this.timer.remove();
     this.timer = null;
