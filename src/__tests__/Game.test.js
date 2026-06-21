@@ -183,7 +183,7 @@ describe('Game Scene', () => {
 
     it('debe usar textura fallback', () => {
       scene.shuffleCard();
-      expect(scene.card._textureKey).toBe('card');
+      expect(scene.card._textureKey).toBe('loteria_default');
     });
   });
 
@@ -220,7 +220,7 @@ describe('Game Scene', () => {
       scene.deck = [...CARDS];
       scene.currentIndex = 0;
       scene.showCurrentCard();
-      expect(scene.card._textureKey).toBe('card');
+      expect(scene.card._textureKey).toBe('loteria_default');
     });
 
     it('debe cambiar textura cuando carga SVG completa', () => {
@@ -250,7 +250,7 @@ describe('Game Scene', () => {
       const callback = loadCall[1];
       callback('card_gallo');
 
-      expect(scene.card._textureKey).toBe('card');
+      expect(scene.card._textureKey).toBe('loteria_default');
     });
 
     it('debe usar textura cacheada si existe', () => {
@@ -269,7 +269,7 @@ describe('Game Scene', () => {
       scene.currentIndex = 0;
       scene.showCurrentCard();
       expect(scene.loadingText._visible).toBe(true);
-      expect(scene.card._textureKey).toBe('card');
+      expect(scene.card._textureKey).toBe('loteria_default');
     });
   });
 

@@ -23,8 +23,9 @@ export default class Boot extends Phaser.Scene {
     }
 
     // Título
+    const bootTitleSize = Math.min(64, Math.floor(width / 10));
     const titleText = this.add.text(width / 2, height / 2 - 80, 'Lotería Mexicana', {
-      font: 'bold 36px Georgia, "Times New Roman", serif',
+      font: `bold ${bootTitleSize}px Georgia, "Times New Roman", serif`,
       fill: '#f5e6ca',
       stroke: '#000000',
       strokeThickness: 2,

@@ -10,6 +10,9 @@ class MockGraphics {
   destroy() { return this; }
   setDepth() { return this; }
   createGeometryMask() { return { destroy: () => {} }; }
+  strokeRect() { return this; }
+  fillTriangle() { return this; }
+  generateTexture() { return this; }
 }
 
 class MockText {
