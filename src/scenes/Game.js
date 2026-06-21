@@ -42,7 +42,6 @@ export default class Game extends Phaser.Scene {
     const btnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const btnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const btnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
-    const cardNameSize = Math.min(32, Math.floor(this.gameAreaW / 18));
     const spacing = btnWidth + 16;
     const counterSize = Math.min(16, Math.floor(this.gameAreaW / 30));
 
@@ -106,16 +105,6 @@ export default class Game extends Phaser.Scene {
     // Sombra de la carta
     this.cardShadow = this.add.rectangle(this.gameCx + 4, cy - 26, 150, 230, 0x000000, 0.3);
     this.cardShadow.setDepth(-1);
-
-    // Nombre de la carta con estilo
-    this.cardName = this.add.text(this.gameCx, cy + 100, '', {
-      font: `bold ${cardNameSize}px Georgia, "Times New Roman", serif`,
-      fill: COLORS.textLight,
-      stroke: '#000000',
-      strokeThickness: 1,
-      shadow: { offsetX: 1, offsetY: 1, color: '#000', blur: 3, fill: true },
-    });
-    this.cardName.setOrigin(0.5);
 
     // Indicador de carga para SVG
     this.loadingText = this.add.text(this.gameCx, cy + 130, 'Cargando...', {
@@ -372,7 +361,6 @@ export default class Game extends Phaser.Scene {
     const newBtnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const newBtnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const newBtnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
-    const newCardNameSize = Math.min(32, Math.floor(this.gameAreaW / 18));
     const newSpacing = newBtnWidth + 16;
     const newCy = newH / 2;
     const newCounterSize = Math.min(16, Math.floor(this.gameAreaW / 30));
@@ -395,8 +383,6 @@ export default class Game extends Phaser.Scene {
     this.card.setPosition(this.gameCx, newCy - 30);
     this.cardShadow.setPosition(this.gameCx + 4, newCy - 26);
 
-    this.cardName.setPosition(this.gameCx, newCy + 100);
-    this.cardName.setFontSize(newCardNameSize);
     this.loadingText.setPosition(this.gameCx, newCy + 130);
     this.loadingText.setFontSize(Math.min(11, Math.floor(this.gameAreaW / 40)));
 
@@ -459,7 +445,6 @@ export default class Game extends Phaser.Scene {
   }
 
   shuffleCard() {
-    this.cardName.setText('');
     this.card.setTexture('loteria_default');
   }
 
@@ -469,13 +454,6 @@ export default class Game extends Phaser.Scene {
       scaleX: { from: 2/3, to: 0.5 },
       duration: 100,
       yoyo: true,
-      ease: 'Power2',
-    });
-    this.tweens.add({
-      targets: this.cardName,
-      alpha: { from: 0, to: 1 },
-      y: { from: this.cardName.y + 10, to: this.cardName.y },
-      duration: 200,
       ease: 'Power2',
     });
   }
@@ -589,7 +567,6 @@ export default class Game extends Phaser.Scene {
       callback: () => {
         count++;
         const index = Phaser.Math.Between(0, CARDS.length - 1);
-        this.cardName.setText(CARDS[index].name);
         this.playBeep();
 
         // Efecto visual de barajeo
@@ -644,7 +621,6 @@ export default class Game extends Phaser.Scene {
   showCurrentCard() {
     if (this.currentIndex < this.deck.length) {
       const card = this.deck[this.currentIndex];
-      this.cardName.setText(card.name);
       this.playBeep();
       this.speak(card.id);
 

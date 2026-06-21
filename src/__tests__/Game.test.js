@@ -40,10 +40,6 @@ describe('Game Scene', () => {
       expect(scene.card).toBeDefined();
     });
 
-    it('debe crear el nombre de la carta', () => {
-      expect(scene.cardName).toBeDefined();
-    });
-
     it('debe crear botones', () => {
       expect(scene.startBg).toBeDefined();
       expect(scene.pauseBg).toBeDefined();
@@ -172,11 +168,6 @@ describe('Game Scene', () => {
   });
 
   describe('shuffleCard', () => {
-    it('debe mostrar texto vacío', () => {
-      scene.shuffleCard();
-      expect(scene.cardName.text).toBe('');
-    });
-
     it('no debe llamar a speak', () => {
       const spy = vi.spyOn(scene, 'speak');
       scene.shuffleCard();
@@ -194,7 +185,8 @@ describe('Game Scene', () => {
       scene.deck = [...CARDS];
       scene.currentIndex = 0;
       scene.showCurrentCard();
-      expect(scene.cardName.text).toBe(CARDS[0].name);
+      expect(scene.currentIndex).toBe(0);
+      expect(scene.deck.length).toBe(CARDS.length);
     });
 
     it('debe llamar speak con el id de la carta', () => {
@@ -342,13 +334,6 @@ describe('Game Scene', () => {
       expect(callback).toHaveBeenCalled();
     });
 
-    it('debe cambiar el nombre de la carta durante la animación', () => {
-      scene.shuffleAnimation(() => {});
-      const lastEvent = scene.time._events[scene.time._events.length - 1];
-      lastEvent._config.callback();
-      const validNames = CARDS.map((c) => c.name);
-      expect(validNames).toContain(scene.cardName.text);
-    });
   });
 
   describe('togglePause', () => {
