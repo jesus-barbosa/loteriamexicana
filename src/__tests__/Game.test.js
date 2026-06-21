@@ -161,7 +161,10 @@ describe('Game Scene', () => {
 
     it('debe usar meSpeak.speak con el texto', () => {
       scene.speak('El Gallo');
-      expect(meSpeak.speak).toHaveBeenCalledWith('El Gallo', { rawdata: true });
+      expect(meSpeak.speak).toHaveBeenCalledWith(
+        'El Gallo',
+        expect.objectContaining({ rawdata: true, variant: 'f1' }),
+      );
     });
 
     it('debe decodificar audio en beepCtx', () => {

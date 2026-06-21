@@ -504,7 +504,14 @@ export default class Game extends Phaser.Scene {
   speak(text) {
     if (!this.beepCtx) return;
     try {
-      const rawData = meSpeak.speak(text, { rawdata: true });
+      const rawData = meSpeak.speak(text, {
+        rawdata: true,
+        variant: 'f1',
+        pitch: 65,
+        speed: 145,
+        amplitude: 80,
+        wordgap: 5,
+      });
       if (!rawData) return;
       this.beepCtx.decodeAudioData(rawData, (buffer) => {
         const source = this.beepCtx.createBufferSource();
