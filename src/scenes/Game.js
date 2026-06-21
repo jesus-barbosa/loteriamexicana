@@ -30,9 +30,9 @@ export default class Game extends Phaser.Scene {
   create() {
     this.beepCtx = null;
 
-    const cy = this.cameras.main.centerY;
-    const w = this.cameras.main.width;
-    const h = this.cameras.main.height;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const cy = h / 2;
 
     this.gameAreaW = w * 0.6;
     this.panelW = w * 0.4;
@@ -65,7 +65,7 @@ export default class Game extends Phaser.Scene {
     this.drawBackground(w, h);
 
     // Título con estilo festivo
-    this.title = this.add.text(this.gameCx, 35, 'Lotería Mexicana', {
+    this.title = this.add.text(w / 2, 35, 'Lotería Mexicana', {
       font: `bold ${titleSize}px Georgia, "Times New Roman", serif`,
       fill: COLORS.textLight,
       stroke: '#000000',
@@ -77,7 +77,7 @@ export default class Game extends Phaser.Scene {
     // Línea decorativa bajo el título
     this.titleLine = this.add.graphics();
     this.titleLine.lineStyle(2, COLORS.separator, 0.8);
-    this.titleLine.lineBetween(this.gameCx - 100, 55, this.gameCx + 100, 55);
+    this.titleLine.lineBetween(w / 2 - 100, 55, w / 2 + 100, 55);
 
     // Contador de progreso
     this.counterText = this.add.text(this.gameCx, 68, '', {
@@ -379,11 +379,11 @@ export default class Game extends Phaser.Scene {
 
     this.drawBackground(newW, newH);
 
-    this.title.setPosition(this.gameCx, 35);
+    this.title.setPosition(newW / 2, 35);
     this.title.setFontSize(newTitleSize);
     this.titleLine.clear();
     this.titleLine.lineStyle(2, COLORS.separator, 0.8);
-    this.titleLine.lineBetween(this.gameCx - 100, 55, this.gameCx + 100, 55);
+    this.titleLine.lineBetween(newW / 2 - 100, 55, newW / 2 + 100, 55);
 
     this.counterText.setPosition(this.gameCx, 68);
     this.counterText.setFontSize(newCounterSize);

@@ -17,6 +17,8 @@ describe('Game Scene', () => {
   let scene;
 
   beforeEach(() => {
+    window.innerWidth = 800;
+    window.innerHeight = 600;
     scene = new Game();
     scene.create();
   });
