@@ -1,6 +1,4 @@
-import { generateCardSvg } from './cardSvgGenerator.js';
-
-const LOAD_TIMEOUT = 3000;
+const LOAD_TIMEOUT = 5000;
 
 export class CardLoader {
   constructor(scene) {
@@ -44,24 +42,28 @@ export class CardLoader {
       finish('card');
     }, LOAD_TIMEOUT);
 
+    const file = cardData.file;
+    if (!file) {
+      clearTimeout(timeoutId);
+      this.loading.delete(cardData.id);
+      onComplete('card');
+      return;
+    }
+
     try {
-      const svgString = generateCardSvg(cardData);
-      const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
       const { width, height } = this.getCardSize();
+      const imagePath = `assets/cards/${file}`;
 
-      this.scene.load.svg(key, url, { width, height });
+      this.scene.load.image(key, imagePath, { width, height });
 
-      this.scene.load.once(`filecomplete-svg-${key}`, () => {
+      this.scene.load.once(`filecomplete-image-${key}`, () => {
         clearTimeout(timeoutId);
-        URL.revokeObjectURL(url);
         finish(key);
       });
 
-      this.scene.load.once('loaderror', (file) => {
-        if (file && file.key === key) {
+      this.scene.load.once('loaderror', (errFile) => {
+        if (errFile && errFile.key === key) {
           clearTimeout(timeoutId);
-          URL.revokeObjectURL(url);
           finish('card');
         }
       });

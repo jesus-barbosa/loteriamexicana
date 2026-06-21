@@ -6,7 +6,7 @@ function createMockScene() {
   return {
     textures: { exists: vi.fn(() => false) },
     load: {
-      svg: vi.fn(),
+      image: vi.fn(),
       once: vi.fn(),
       start: vi.fn(),
     },
@@ -20,16 +20,6 @@ describe('CardLoader', () => {
   beforeEach(() => {
     vi.stubGlobal('window', { devicePixelRatio: 1 });
     vi.stubGlobal('navigator', { userAgent: 'Mozilla/5.0' });
-    vi.stubGlobal('Blob', class {
-      constructor(parts, opts) {
-        this.parts = parts;
-        this.opts = opts;
-      }
-    });
-    vi.stubGlobal('URL', {
-      createObjectURL: vi.fn(() => 'blob:test'),
-      revokeObjectURL: vi.fn(),
-    });
     scene = createMockScene();
     loader = new CardLoader(scene);
   });
@@ -58,17 +48,23 @@ describe('CardLoader', () => {
     expect(onComplete).not.toHaveBeenCalled();
   });
 
-  it('debe iniciar carga SVG si no está en caché', () => {
+  it('debe iniciar carga de imagen si no está en caché', () => {
     const onComplete = vi.fn();
     loader.loadCard(CARDS[0], onComplete);
-    expect(scene.load.svg).toHaveBeenCalled();
+    expect(scene.load.image).toHaveBeenCalled();
     expect(scene.load.start).toHaveBeenCalled();
   });
 
   it('debe cargar con la key correcta', () => {
     const onComplete = vi.fn();
     loader.loadCard(CARDS[0], onComplete);
-    expect(scene.load.svg.mock.calls[0][0]).toBe('card_gallo');
+    expect(scene.load.image.mock.calls[0][0]).toBe('card_gallo');
+  });
+
+  it('debe cargar la imagen correcta del archivo', () => {
+    const onComplete = vi.fn();
+    loader.loadCard(CARDS[0], onComplete);
+    expect(scene.load.image.mock.calls[0][1]).toBe('assets/cards/gallo.jpg');
   });
 
   it('debe manejar carga exitosa', () => {
@@ -76,7 +72,7 @@ describe('CardLoader', () => {
     loader.loadCard(CARDS[0], onComplete);
 
     const fileCompleteFn = scene.load.once.mock.calls.find(
-      ([event]) => event === 'filecomplete-svg-card_gallo'
+      ([event]) => event === 'filecomplete-image-card_gallo'
     );
     expect(fileCompleteFn).toBeDefined();
     fileCompleteFn[1]();

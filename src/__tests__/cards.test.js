@@ -7,16 +7,16 @@ describe('CARDS - Lotería Mexicana', () => {
     expect(CARDS).toHaveLength(54);
   });
 
-  it('cada carta debe tener id, name, number e image', () => {
+  it('cada carta debe tener id, name, number y file', () => {
     CARDS.forEach((card) => {
       expect(card).toHaveProperty('id');
       expect(card).toHaveProperty('name');
       expect(card).toHaveProperty('number');
-      expect(card).toHaveProperty('image');
+      expect(card).toHaveProperty('file');
       expect(typeof card.id).toBe('string');
       expect(typeof card.name).toBe('string');
       expect(typeof card.number).toBe('number');
-      expect(typeof card.image).toBe('string');
+      expect(typeof card.file).toBe('string');
     });
   });
 
@@ -32,9 +32,9 @@ describe('CARDS - Lotería Mexicana', () => {
     });
   });
 
-  it('todas las cartas deben tener image en formato card_id', () => {
+  it('todas las cartas deben tener file con extensión jpg', () => {
     CARDS.forEach((card) => {
-      expect(card.image).toBe(`card_${card.id}`);
+      expect(card.file).toMatch(/\.jpg$/);
     });
   });
 
