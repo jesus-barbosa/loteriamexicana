@@ -457,6 +457,15 @@ export default class Game extends Phaser.Scene {
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'es-MX';
     utter.rate = 0.9;
+
+    // iOS: explicit voice selection is more reliable than lang alone
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      utter.voice = voices.find(v => v.lang.startsWith('es-MX'))
+        || voices.find(v => v.lang.startsWith('es'))
+        || null;
+    }
+
     window.speechSynthesis.speak(utter);
   }
 
@@ -474,6 +483,12 @@ export default class Game extends Phaser.Scene {
   }
 
   startGame() {
+    // iOS: prime speech synthesis during user gesture (carga voces disponibles)
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.getVoices();
+    }
+
     this.deck = this.shuffleDeck([...CARDS]);
     this.currentIndex = 0;
     this.drawnCards = [];
@@ -567,6 +582,7 @@ export default class Game extends Phaser.Scene {
     if (this.currentIndex < this.deck.length) {
       const card = this.deck[this.currentIndex];
       this.cardName.setText(card.name);
+      try { this.sound.play('click'); } catch (_) {}
       this.speak(card.name);
 
       const textureKey = `card_${card.id}`;

@@ -235,6 +235,10 @@ globalThis.Phaser = {
 globalThis.speechSynthesis = {
   cancel: vi.fn(),
   speak: vi.fn(),
+  getVoices: vi.fn(() => [
+    { lang: 'es-MX', name: 'Spanish (Mexico)' },
+    { lang: 'en-US', name: 'English (United States)' },
+  ]),
 };
 globalThis.SpeechSynthesisUtterance = class {
   constructor(text) { this.text = text; }

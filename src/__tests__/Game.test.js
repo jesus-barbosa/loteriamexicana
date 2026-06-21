@@ -152,6 +152,17 @@ describe('Game Scene', () => {
       expect(utter.rate).toBe(0.9);
     });
 
+    it('debe seleccionar voz es-MX si está disponible', () => {
+      scene.speak('El Gallo');
+      const utter = globalThis.speechSynthesis.speak.mock.calls[0][0];
+      expect(utter.voice.lang).toBe('es-MX');
+    });
+
+    it('debe obtener las voces con getVoices', () => {
+      scene.speak('El Gallo');
+      expect(globalThis.speechSynthesis.getVoices).toHaveBeenCalled();
+    });
+
     it('no debe fallar si speechSynthesis no existe', () => {
       const original = globalThis.speechSynthesis;
       delete globalThis.speechSynthesis;
