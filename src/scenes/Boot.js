@@ -1,3 +1,5 @@
+import { CARDS } from '../cards.js';
+
 export default class Boot extends Phaser.Scene {
   constructor() {
     super('Boot');
@@ -60,6 +62,10 @@ export default class Boot extends Phaser.Scene {
     this.load.image('card', 'assets/cards/card.png');
     this.load.audio('click', 'assets/sounds/click.wav');
     this.load.audio('move', 'assets/sounds/move.wav');
+
+    CARDS.forEach((card) => {
+      this.load.audio(card.audio, `assets/sounds/cards/${card.audio}.mp3`);
+    });
   }
 
   create() {

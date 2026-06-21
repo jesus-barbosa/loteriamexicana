@@ -1,16 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Game from '../scenes/Game.js';
 import { CARDS } from '../cards.js';
-import meSpeak from 'mespeak';
-
-vi.mock('mespeak', () => ({
-  default: {
-    speak: vi.fn(() => new ArrayBuffer(1024)),
-    loadConfig: vi.fn(),
-    loadVoice: vi.fn(),
-    resetQueue: vi.fn(),
-  },
-}));
 
 const COLORS = {
   accent: 0xe74c3c,
@@ -150,31 +140,27 @@ describe('Game Scene', () => {
 
   describe('speak', () => {
     beforeEach(() => {
-      scene.beepCtx = {
-        decodeAudioData: vi.fn((_data, success) => success({ duration: 0.5 })),
-        createBufferSource: vi.fn(() => ({
-          connect: vi.fn(),
-          start: vi.fn(),
-        })),
-      };
+      scene.beepCtx = {};
+      scene.cache = { audio: { exists: vi.fn() } };
+      scene.sound = { play: vi.fn() };
     });
 
-    it('debe usar meSpeak.speak con el texto', () => {
-      scene.speak('El Gallo');
-      expect(meSpeak.speak).toHaveBeenCalledWith(
-        'El Gallo',
-        expect.objectContaining({ rawdata: true, variant: 'f1' }),
-      );
+    it('debe reproducir audio del cache', () => {
+      scene.cache.audio.exists = vi.fn(() => true);
+      scene.speak('gallo');
+      expect(scene.cache.audio.exists).toHaveBeenCalledWith('audio_gallo');
+      expect(scene.sound.play).toHaveBeenCalledWith('audio_gallo');
     });
 
-    it('debe decodificar audio en beepCtx', () => {
-      scene.speak('El Gallo');
-      expect(scene.beepCtx.decodeAudioData).toHaveBeenCalled();
+    it('no debe reproducir si audio no está en cache', () => {
+      scene.cache.audio.exists = vi.fn(() => false);
+      scene.speak('gallo');
+      expect(scene.sound.play).not.toHaveBeenCalled();
     });
 
     it('no debe fallar si beepCtx no existe', () => {
       scene.beepCtx = null;
-      expect(() => scene.speak('test')).not.toThrow();
+      expect(() => scene.speak('gallo')).not.toThrow();
     });
   });
 
@@ -206,12 +192,12 @@ describe('Game Scene', () => {
       expect(scene.cardName.text).toBe(CARDS[0].name);
     });
 
-    it('debe llamar speak con el nombre de la carta', () => {
+    it('debe llamar speak con el id de la carta', () => {
       scene.deck = [...CARDS];
       scene.currentIndex = 5;
       const spy = vi.spyOn(scene, 'speak');
       scene.showCurrentCard();
-      expect(spy).toHaveBeenCalledWith(CARDS[5].name);
+      expect(spy).toHaveBeenCalledWith(CARDS[5].id);
     });
 
     it('no debe fallar si currentIndex fuera de rango', () => {

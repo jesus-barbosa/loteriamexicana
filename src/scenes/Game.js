@@ -1,11 +1,5 @@
 import { CARDS } from '../cards.js';
 import { CardLoader } from '../cardLoader.js';
-import meSpeak from 'mespeak';
-import mespeakConfig from 'mespeak/src/mespeak_config.json';
-import esVoice from 'mespeak/voices/es-la.json';
-
-meSpeak.loadConfig(mespeakConfig);
-meSpeak.loadVoice(esVoice);
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 
@@ -501,24 +495,13 @@ export default class Game extends Phaser.Scene {
     }
   }
 
-  speak(text) {
+  speak(cardId) {
     if (!this.beepCtx) return;
     try {
-      const rawData = meSpeak.speak(text, {
-        rawdata: true,
-        variant: 'f1',
-        pitch: 65,
-        speed: 145,
-        amplitude: 80,
-        wordgap: 5,
-      });
-      if (!rawData) return;
-      this.beepCtx.decodeAudioData(rawData, (buffer) => {
-        const source = this.beepCtx.createBufferSource();
-        source.buffer = buffer;
-        source.connect(this.beepCtx.destination);
-        source.start(0);
-      }, () => {});
+      const audioKey = `audio_${cardId}`;
+      if (this.cache.audio.exists(audioKey)) {
+        this.sound.play(audioKey);
+      }
     } catch (_) {}
   }
 
@@ -634,7 +617,7 @@ export default class Game extends Phaser.Scene {
       const card = this.deck[this.currentIndex];
       this.cardName.setText(card.name);
       this.playBeep();
-      this.speak(card.name);
+      this.speak(card.id);
 
       const textureKey = `card_${card.id}`;
       if (this.textures.exists(textureKey)) {
@@ -741,8 +724,6 @@ export default class Game extends Phaser.Scene {
       this.timer.remove();
     this.timer = null;
     }
-
-    meSpeak.resetQueue();
 
     this.startBg.setFillStyle(COLORS.accent).setInteractive({ useHandCursor: true });
 

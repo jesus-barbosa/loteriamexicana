@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import Boot from '../scenes/Boot.js';
+import { CARDS } from '../cards.js';
 
 describe('Boot Scene', () => {
   let scene;
@@ -18,6 +19,9 @@ describe('Boot Scene', () => {
     expect(scene.load.image).toHaveBeenCalledWith('card', 'assets/cards/card.png');
     expect(scene.load.audio).toHaveBeenCalledWith('click', 'assets/sounds/click.wav');
     expect(scene.load.audio).toHaveBeenCalledWith('move', 'assets/sounds/move.wav');
+    expect(scene.load.audio).toHaveBeenCalledWith('audio_gallo', 'assets/sounds/cards/audio_gallo.mp3');
+    expect(scene.load.audio).toHaveBeenCalledWith('audio_rana', 'assets/sounds/cards/audio_rana.mp3');
+    expect(scene.load.audio).toHaveBeenCalledTimes(CARDS.length + 2);
   });
 
   it('create debe iniciar escena Game', () => {

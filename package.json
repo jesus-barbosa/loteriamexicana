@@ -15,7 +15,6 @@
     "security": "npm audit && lockfile-lint --path package-lock.json --type npm --allowed-hosts npm"
   },
   "dependencies": {
-    "mespeak": "^2.0.2",
     "phaser": "^3.80.0"
   },
   "devDependencies": {
