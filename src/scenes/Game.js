@@ -38,8 +38,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = w * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const titleSize = Math.floor(w / 2.5);
-    console.log('DEBUG title', { w, h, titleSize, gameAreaW: this.gameAreaW, gameCx: this.gameCx, camW: this.cameras.main?.width, camH: this.cameras.main?.height });
+    const titleSize = Math.min(96, Math.floor(this.gameAreaW / 4));
     const btnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const btnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const btnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -369,7 +368,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = newW * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const newTitleSize = Math.floor(newW / 2.5);
+    const newTitleSize = Math.min(96, Math.floor(this.gameAreaW / 4));
     const newBtnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const newBtnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const newBtnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
