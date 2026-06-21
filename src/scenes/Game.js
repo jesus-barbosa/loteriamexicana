@@ -38,7 +38,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = w * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const titleSize = Math.min(64, Math.floor(this.gameAreaW / 10));
+    const titleSize = Math.min(80, Math.floor(this.gameAreaW / 6));
     const btnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const btnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const btnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -344,7 +344,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = newW * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const newTitleSize = Math.min(64, Math.floor(this.gameAreaW / 10));
+    const newTitleSize = Math.min(80, Math.floor(this.gameAreaW / 6));
     const newBtnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const newBtnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const newBtnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -435,8 +435,7 @@ export default class Game extends Phaser.Scene {
   }
 
   shuffleCard() {
-    const index = Phaser.Math.Between(0, CARDS.length - 1);
-    this.cardName.setText(CARDS[index].name);
+    this.cardName.setText('');
     this.card.setTexture('card');
   }
 

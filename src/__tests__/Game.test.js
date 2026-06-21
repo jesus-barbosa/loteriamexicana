@@ -170,11 +170,9 @@ describe('Game Scene', () => {
   });
 
   describe('shuffleCard', () => {
-    it('debe mostrar un nombre de carta válido', () => {
+    it('debe mostrar texto vacío', () => {
       scene.shuffleCard();
-      const text = scene.cardName.text;
-      const validNames = CARDS.map((c) => c.name);
-      expect(validNames).toContain(text);
+      expect(scene.cardName.text).toBe('');
     });
 
     it('no debe llamar a speak', () => {
