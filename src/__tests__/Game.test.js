@@ -146,6 +146,7 @@ describe('Game Scene', () => {
     });
 
     it('debe configurar idioma es-MX', () => {
+      globalThis.speechSynthesis.speak.mockClear();
       scene.speak('El Gallo');
       const utter = globalThis.speechSynthesis.speak.mock.calls[0][0];
       expect(utter.lang).toBe('es-MX');
@@ -153,6 +154,7 @@ describe('Game Scene', () => {
     });
 
     it('debe seleccionar voz es-MX si está disponible', () => {
+      globalThis.speechSynthesis.speak.mockClear();
       scene.speak('El Gallo');
       const utter = globalThis.speechSynthesis.speak.mock.calls[0][0];
       expect(utter.voice.lang).toBe('es-MX');

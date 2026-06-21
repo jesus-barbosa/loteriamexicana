@@ -29,6 +29,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     this.beepCtx = null;
+    this._silenceTimer = null;
 
     const cy = this.cameras.main.centerY;
     const w = this.cameras.main.width;
@@ -469,20 +470,46 @@ export default class Game extends Phaser.Scene {
     }
   }
 
+  _startSilenceLoop() {
+    if (!window.speechSynthesis || !this.isRunning) return;
+    clearTimeout(this._silenceTimer);
+    const tick = () => {
+      if (!this.isRunning) return;
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      u.onend = () => tick();
+      u.onerror = () => tick();
+      window.speechSynthesis.speak(u);
+    };
+    tick();
+  }
+
+  _stopSilenceLoop() {
+    clearTimeout(this._silenceTimer);
+    this._silenceTimer = null;
+  }
+
   playBeep() {
     if (!this.beepCtx) return;
-    try {
-      const osc = this.beepCtx.createOscillator();
-      const gain = this.beepCtx.createGain();
-      osc.connect(gain);
-      gain.connect(this.beepCtx.destination);
-      osc.frequency.value = 660;
-      osc.type = 'sine';
-      gain.gain.setValueAtTime(0.15, this.beepCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.beepCtx.currentTime + 0.08);
-      osc.start();
-      osc.stop(this.beepCtx.currentTime + 0.08);
-    } catch (_) {}
+    const fire = () => {
+      try {
+        const osc = this.beepCtx.createOscillator();
+        const gain = this.beepCtx.createGain();
+        osc.connect(gain);
+        gain.connect(this.beepCtx.destination);
+        osc.frequency.value = 660;
+        osc.type = 'sine';
+        gain.gain.setValueAtTime(0.15, this.beepCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.beepCtx.currentTime + 0.08);
+        osc.start();
+        osc.stop(this.beepCtx.currentTime + 0.08);
+      } catch (_) {}
+    };
+    if (this.beepCtx.state === 'suspended') {
+      this.beepCtx.resume().then(fire).catch(fire);
+    } else {
+      fire();
+    }
   }
 
   speak(text) {
@@ -498,6 +525,9 @@ export default class Game extends Phaser.Scene {
         || voices.find(v => v.lang.startsWith('es'))
         || null;
     }
+
+    utter.onend = () => this._startSilenceLoop();
+    utter.onerror = () => this._startSilenceLoop();
 
     window.speechSynthesis.speak(utter);
   }
@@ -524,6 +554,9 @@ export default class Game extends Phaser.Scene {
     this.drawnCards = [];
     this.isRunning = true;
     this.isPaused = false;
+
+    // iOS: iniciar cadena de silencio para mantener vivo el canal de speech
+    this._startSilenceLoop();
 
     this.historyContainer.removeAll(true);
     this.historyContainer.y = this.panelY + this.panelPadding + 20;
@@ -716,6 +749,7 @@ export default class Game extends Phaser.Scene {
   stopGame() {
     this.isRunning = false;
     this.isPaused = false;
+    this._stopSilenceLoop();
     if (this.timer) {
       this.timer.remove();
     this.timer = null;

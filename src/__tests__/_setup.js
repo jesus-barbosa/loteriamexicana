@@ -241,7 +241,7 @@ globalThis.speechSynthesis = {
   ]),
 };
 globalThis.SpeechSynthesisUtterance = class {
-  constructor(text) { this.text = text; }
+  constructor(text) { this.text = text; this.onend = null; this.onerror = null; }
 };
 
 class MockAudioCtx {
