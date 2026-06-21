@@ -496,18 +496,26 @@ export default class Game extends Phaser.Scene {
   }
 
   speak(text) {
-    if (!window.speechSynthesis) return;
+    if (!window.speechSynthesis) {
+      console.warn('[speech] speechSynthesis not available');
+      return;
+    }
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'es-MX';
     utter.rate = 0.9;
 
     const voices = window.speechSynthesis.getVoices();
+    console.log(`[speech] voices: ${voices.length}, text: "${text}"`);
     if (voices.length > 0) {
-      utter.voice = voices.find(v => v.lang.startsWith('es-MX'))
-        || voices.find(v => v.lang.startsWith('es'))
-        || null;
+      const esMx = voices.find(v => v.lang.startsWith('es-MX'));
+      const es = voices.find(v => v.lang.startsWith('es'));
+      utter.voice = esMx || es || null;
+      console.log(`[speech] voice: ${utter.voice ? utter.voice.name : 'null'}, lang: ${utter.voice ? utter.voice.lang : 'n/a'}`);
     }
+
+    utter.onend = () => console.log(`[speech] spoke: "${text}"`);
+    utter.onerror = (e) => console.warn(`[speech] error speaking "${text}":`, e.error);
 
     window.speechSynthesis.speak(utter);
   }
@@ -526,10 +534,14 @@ export default class Game extends Phaser.Scene {
   }
 
   startGame() {
-    // iOS: desbloquear speechSynthesis con utterance vacío durante gesto
+    // iOS: desbloquear speechSynthesis con utterance silencioso durante gesto
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+      const unlock = new SpeechSynthesisUtterance(' ');
+      unlock.volume = 0;
+      unlock.onend = () => console.log('[speech] unlock utterance ended');
+      unlock.onerror = (e) => console.warn('[speech] unlock utterance error:', e.error);
+      window.speechSynthesis.speak(unlock);
     }
     // iOS: calentar AudioContext con buffer vacío durante gesto
     this.resumeAudio();
