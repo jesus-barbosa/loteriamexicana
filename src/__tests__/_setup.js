@@ -209,6 +209,7 @@ class MockScene {
       start: vi.fn(),
       restart: vi.fn(),
     };
+    this.registry = new Map();
     this.textures = {
       exists: vi.fn(() => false),
     };

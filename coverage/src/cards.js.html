@@ -1,0 +1,253 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/cards.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> cards.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const CARDS = [
+  { id: 'gallo', name: 'El Gallo', number: 1, image: 'card_gallo' },
+  { id: 'diablo', name: 'El Diablo', number: 2, image: 'card_diablo' },
+  { id: 'dama', name: 'La Dama', number: 3, image: 'card_dama' },
+  { id: 'catrin', name: 'El Catrín', number: 4, image: 'card_catrin' },
+  { id: 'paraguas', name: 'El Paraguas', number: 5, image: 'card_paraguas' },
+  { id: 'sirena', name: 'La Sirena', number: 6, image: 'card_sirena' },
+  { id: 'escalera', name: 'La Escalera', number: 7, image: 'card_escalera' },
+  { id: 'botella', name: 'La Botella', number: 8, image: 'card_botella' },
+  { id: 'barril', name: 'El Barril', number: 9, image: 'card_barril' },
+  { id: 'arbol', name: 'El Árbol', number: 10, image: 'card_arbol' },
+  { id: 'melon', name: 'El Melón', number: 11, image: 'card_melon' },
+  { id: 'valiente', name: 'El Valiente', number: 12, image: 'card_valiente' },
+  { id: 'gorrito', name: 'El Gorrito', number: 13, image: 'card_gorrito' },
+  { id: 'muerte', name: 'La Muerte', number: 14, image: 'card_muerte' },
+  { id: 'pera', name: 'La Pera', number: 15, image: 'card_pera' },
+  { id: 'bandera', name: 'La Bandera', number: 16, image: 'card_bandera' },
+  { id: 'bandolon', name: 'El Bandolón', number: 17, image: 'card_bandolon' },
+  { id: 'violoncello', name: 'El Violoncello', number: 18, image: 'card_violoncello' },
+  { id: 'garza', name: 'La Garza', number: 19, image: 'card_garza' },
+  { id: 'pajaro', name: 'El Pájaro', number: 20, image: 'card_pajaro' },
+  { id: 'mano', name: 'La Mano', number: 21, image: 'card_mano' },
+  { id: 'bota', name: 'La Bota', number: 22, image: 'card_bota' },
+  { id: 'luna', name: 'La Luna', number: 23, image: 'card_luna' },
+  { id: 'cotorro', name: 'El Cotorro', number: 24, image: 'card_cotorro' },
+  { id: 'borracho', name: 'El Borracho', number: 25, image: 'card_borracho' },
+  { id: 'negrito', name: 'El Negrito', number: 26, image: 'card_negrito' },
+  { id: 'corazon', name: 'El Corazón', number: 27, image: 'card_corazon' },
+  { id: 'sandia', name: 'La Sandía', number: 28, image: 'card_sandia' },
+  { id: 'tambor', name: 'El Tambor', number: 29, image: 'card_tambor' },
+  { id: 'camaron', name: 'El Camarón', number: 30, image: 'card_camaron' },
+  { id: 'jaras', name: 'Las Jaras', number: 31, image: 'card_jaras' },
+  { id: 'musico', name: 'El Músico', number: 32, image: 'card_musico' },
+  { id: 'arana', name: 'La Araña', number: 33, image: 'card_arana' },
+  { id: 'soldado', name: 'El Soldado', number: 34, image: 'card_soldado' },
+  { id: 'estrella', name: 'La Estrella', number: 35, image: 'card_estrella' },
+  { id: 'cazo', name: 'El Cazo', number: 36, image: 'card_cazo' },
+  { id: 'mundo', name: 'El Mundo', number: 37, image: 'card_mundo' },
+  { id: 'apache', name: 'El Apache', number: 38, image: 'card_apache' },
+  { id: 'nopal', name: 'El Nopal', number: 39, image: 'card_nopal' },
+  { id: 'alacran', name: 'El Alacrán', number: 40, image: 'card_alacran' },
+  { id: 'rosa', name: 'La Rosa', number: 41, image: 'card_rosa' },
+  { id: 'calavera', name: 'La Calavera', number: 42, image: 'card_calavera' },
+  { id: 'campana', name: 'La Campana', number: 43, image: 'card_campana' },
+  { id: 'cantarito', name: 'El Cantarito', number: 44, image: 'card_cantarito' },
+  { id: 'venado', name: 'El Venado', number: 45, image: 'card_venado' },
+  { id: 'sol', name: 'El Sol', number: 46, image: 'card_sol' },
+  { id: 'corona', name: 'La Corona', number: 47, image: 'card_corona' },
+  { id: 'chalupa', name: 'La Chalupa', number: 48, image: 'card_chalupa' },
+  { id: 'pino', name: 'El Pino', number: 49, image: 'card_pino' },
+  { id: 'pescado', name: 'El Pescado', number: 50, image: 'card_pescado' },
+  { id: 'palma', name: 'La Palma', number: 51, image: 'card_palma' },
+  { id: 'maceta', name: 'La Maceta', number: 52, image: 'card_maceta' },
+  { id: 'arpa', name: 'El Arpa', number: 53, image: 'card_arpa' },
+  { id: 'rana', name: 'La Rana', number: 54, image: 'card_rana' },
+];
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-06-20T23:43:09.371Z
+            </div>
+        <script src="../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
+    </body>
+</html>
+    

@@ -52,7 +52,7 @@ export default class Game extends Phaser.Scene {
     this.isRunning = false;
     this.isPaused = false;
     this.timer = null;
-    this.cardInterval = 2;
+    this.cardInterval = this.registry.get('cardInterval') || 2;
     this.intervalBtns = [];
     this.intervalBtnTexts = [];
     this.cardLoader = new CardLoader(this);
@@ -153,6 +153,8 @@ export default class Game extends Phaser.Scene {
       this.intervalBtns.push(bg);
       this.intervalBtnTexts.push(text);
     });
+
+    this.selectInterval(this.cardInterval);
 
     // Botón "Comenzar"
     this.startBg = this.add.rectangle(this.gameCx, cy + 170, btnWidth, btnHeight, COLORS.accent);
@@ -604,6 +606,7 @@ export default class Game extends Phaser.Scene {
 
   selectInterval(value) {
     this.cardInterval = value;
+    this.registry.set('cardInterval', value);
 
     const intervalValues = [1, 2, 3, 5];
     this.intervalBtns.forEach((btn, i) => {
