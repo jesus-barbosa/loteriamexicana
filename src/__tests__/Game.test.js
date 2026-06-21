@@ -140,22 +140,27 @@ describe('Game Scene', () => {
 
   describe('speak', () => {
     beforeEach(() => {
-      scene.beepCtx = {};
-      scene.cache = { audio: { exists: vi.fn() } };
-      scene.sound = { play: vi.fn() };
+      scene.beepCtx = {
+        createBufferSource: vi.fn(() => ({
+          connect: vi.fn(),
+          start: vi.fn(),
+        })),
+      };
+      scene.cache = { audio: { get: vi.fn() } };
     });
 
-    it('debe reproducir audio del cache', () => {
-      scene.cache.audio.exists = vi.fn(() => true);
+    it('debe reproducir audio desde el cache por beepCtx', () => {
+      const mockBuffer = { duration: 0.5 };
+      scene.cache.audio.get = vi.fn(() => mockBuffer);
       scene.speak('gallo');
-      expect(scene.cache.audio.exists).toHaveBeenCalledWith('audio_gallo');
-      expect(scene.sound.play).toHaveBeenCalledWith('audio_gallo');
+      expect(scene.cache.audio.get).toHaveBeenCalledWith('audio_gallo');
+      expect(scene.beepCtx.createBufferSource).toHaveBeenCalled();
     });
 
     it('no debe reproducir si audio no está en cache', () => {
-      scene.cache.audio.exists = vi.fn(() => false);
+      scene.cache.audio.get = vi.fn(() => null);
       scene.speak('gallo');
-      expect(scene.sound.play).not.toHaveBeenCalled();
+      expect(scene.beepCtx.createBufferSource).not.toHaveBeenCalled();
     });
 
     it('no debe fallar si beepCtx no existe', () => {

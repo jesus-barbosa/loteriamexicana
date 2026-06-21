@@ -498,10 +498,13 @@ export default class Game extends Phaser.Scene {
   speak(cardId) {
     if (!this.beepCtx) return;
     try {
-      const audioKey = `audio_${cardId}`;
-      if (this.cache.audio.exists(audioKey)) {
-        this.sound.play(audioKey);
-      }
+      const cacheKey = `audio_${cardId}`;
+      const buffer = this.cache.audio.get(cacheKey);
+      if (!buffer) return;
+      const source = this.beepCtx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(this.beepCtx.destination);
+      source.start(0);
     } catch (_) {}
   }
 
