@@ -1,6 +1,8 @@
 import { CARDS } from '../cards.js';
 import { CardLoader } from '../cardLoader.js';
 
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+
 const COLORS = {
   bgDark: 0x1a0a2e,
   bgPanel: 0x12071f,
@@ -26,6 +28,8 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+    this.beepCtx = null;
+
     const cy = this.cameras.main.centerY;
     const w = this.cameras.main.width;
     const h = this.cameras.main.height;
@@ -451,6 +455,36 @@ export default class Game extends Phaser.Scene {
     });
   }
 
+  resumeAudio() {
+    if (!this.beepCtx && AudioCtx) {
+      this.beepCtx = new AudioCtx();
+    }
+    if (this.beepCtx && this.beepCtx.state === 'suspended') {
+      this.beepCtx.resume();
+    }
+
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.getVoices();
+    }
+  }
+
+  playBeep() {
+    if (!this.beepCtx) return;
+    try {
+      const osc = this.beepCtx.createOscillator();
+      const gain = this.beepCtx.createGain();
+      osc.connect(gain);
+      gain.connect(this.beepCtx.destination);
+      osc.frequency.value = 660;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.15, this.beepCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.beepCtx.currentTime + 0.08);
+      osc.start();
+      osc.stop(this.beepCtx.currentTime + 0.08);
+    } catch (_) {}
+  }
+
   speak(text) {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.cancel();
@@ -458,7 +492,6 @@ export default class Game extends Phaser.Scene {
     utter.lang = 'es-MX';
     utter.rate = 0.9;
 
-    // iOS: explicit voice selection is more reliable than lang alone
     const voices = window.speechSynthesis.getVoices();
     if (voices.length > 0) {
       utter.voice = voices.find(v => v.lang.startsWith('es-MX'))
@@ -483,11 +516,8 @@ export default class Game extends Phaser.Scene {
   }
 
   startGame() {
-    // iOS: prime speech synthesis during user gesture (carga voces disponibles)
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.getVoices();
-    }
+    // iOS: prime audio + speech during user gesture (obligatorio en iOS)
+    this.resumeAudio();
 
     this.deck = this.shuffleDeck([...CARDS]);
     this.currentIndex = 0;
@@ -582,7 +612,7 @@ export default class Game extends Phaser.Scene {
     if (this.currentIndex < this.deck.length) {
       const card = this.deck[this.currentIndex];
       this.cardName.setText(card.name);
-      try { this.sound.play('click'); } catch (_) {}
+      this.playBeep();
       this.speak(card.name);
 
       const textureKey = `card_${card.id}`;

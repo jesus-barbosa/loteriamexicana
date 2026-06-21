@@ -244,6 +244,32 @@ globalThis.SpeechSynthesisUtterance = class {
   constructor(text) { this.text = text; }
 };
 
+class MockAudioCtx {
+  constructor() {
+    this.state = 'running';
+    this.currentTime = 0;
+    this.destination = {};
+  }
+  resume() { return Promise.resolve(); }
+  createOscillator() {
+    return {
+      connect: vi.fn(),
+      start: vi.fn(),
+      stop: vi.fn(),
+      frequency: { value: 0 },
+      type: '',
+    };
+  }
+  createGain() {
+    return {
+      connect: vi.fn(),
+      gain: { value: 0, setValueAtTime: vi.fn(), exponentialRampToValueAtTime: vi.fn() },
+    };
+  }
+}
+globalThis.AudioContext = MockAudioCtx;
+globalThis.webkitAudioContext = MockAudioCtx;
+
 if (!globalThis.crypto) {
   globalThis.crypto = {
     getRandomValues: (arr) => {
