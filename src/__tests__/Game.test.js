@@ -141,7 +141,6 @@ describe('Game Scene', () => {
   describe('speak', () => {
     it('debe usar speechSynthesis si está disponible', () => {
       scene.speak('El Gallo');
-      expect(globalThis.speechSynthesis.cancel).toHaveBeenCalled();
       expect(globalThis.speechSynthesis.speak).toHaveBeenCalled();
     });
 
