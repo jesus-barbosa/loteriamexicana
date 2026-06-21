@@ -446,6 +446,7 @@ export default class Game extends Phaser.Scene {
 
   shuffleCard() {
     this.card.setTexture('loteria_default');
+    this.card.setScale(2/3);
   }
 
   animateCardChange() {
@@ -627,13 +628,16 @@ export default class Game extends Phaser.Scene {
       const textureKey = `card_${card.id}`;
       if (this.textures.exists(textureKey)) {
         this.card.setTexture(textureKey);
+        this.card.setScale(2/3);
         this.loadingText.setVisible(false);
       } else {
         this.card.setTexture('loteria_default');
+        this.card.setScale(2/3);
         this.loadingText.setVisible(true);
         this.cardLoader.loadCard(card, (loadedKey) => {
           if (this.currentIndex < this.deck.length && this.deck[this.currentIndex].id === card.id) {
             this.card.setTexture(loadedKey);
+            this.card.setScale(2/3);
           }
           this.loadingText.setVisible(false);
         });
