@@ -4,24 +4,54 @@ const S2 = 'stroke="#2c1810" stroke-width="2.5" stroke-linecap="round" stroke-li
 
 export const ILLUSTRATIONS = {
   gallo: `
-    <path d="M110,110 Q80,100 72,130 L70,145 Q68,160 80,170 L85,210 Q90,218 100,215 L115,215 Q125,218 128,210 L132,170 Q145,160 140,145 L138,130 Q130,105 110,110Z" fill="#d4a017" ${S}/>
-    <path d="M68,118 Q55,108 52,100 Q58,92 65,96 Q72,90 78,95 L76,112Z" fill="#c0392b" ${S}/>
-    <path d="M52,100 Q45,95 48,88 Q55,82 62,90" fill="none" ${S1}/>
-    <path d="M70,112 Q75,102 82,108Z" fill="#f39c12" ${S}/>
-    <path d="M100,110 L95,95 L105,95Z" fill="#f39c12" ${S1}/>
-    <circle cx="100" cy="118" r="4" fill="#2c1810"/>
-    <circle cx="102" cy="116" r="1.5" fill="#fff"/>
-    <path d="M128,140 Q150,120 165,100 Q155,130 135,148" fill="#8b4513" ${S}/>
-    <path d="M130,150 Q160,140 175,125 Q162,155 138,158" fill="#a0522d" ${S}/>
-    <path d="M126,160 Q155,160 170,150 Q158,172 132,168" fill="#8b4513" ${S}/>
-    <path d="M125,170 Q150,175 168,170 Q155,190 130,182" fill="#a0522d" ${S}/>
-    <path d="M120,185 Q140,192 155,190 Q142,200 125,195" fill="#8b4513" ${S}/>
-    <line x1="92" y1="215" x2="92" y2="240" fill="none" ${S2}/>
-    <line x1="108" y1="215" x2="108" y2="240" fill="none" ${S2}/>
-    <path d="M82,240 L78,248 L85,244Z" fill="#f39c12" ${S}/>
-    <path d="M118,240 L122,248 L115,244Z" fill="#f39c12" ${S}/>
-    <path d="M88,245 Q92,250 96,245" fill="none" ${S1}/>
-    <path d="M104,245 Q108,250 112,245" fill="none" ${S1}/>
+    <defs>
+      <linearGradient id="galloBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f1c40f"/>
+        <stop offset="100%" stop-color="#d4a017"/>
+      </linearGradient>
+      <linearGradient id="galloComb" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e74c3c"/>
+        <stop offset="100%" stop-color="#8b0000"/>
+      </linearGradient>
+      <linearGradient id="galloTail" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#1a5276"/>
+        <stop offset="100%" stop-color="#0e2f44"/>
+      </linearGradient>
+    </defs>
+    <!-- Body -->
+    <path d="M100,105 Q70,100 65,135 L63,155 Q60,175 75,185 L80,215 Q85,222 100,220 L115,220 Q130,222 135,215 L140,185 Q155,175 152,155 L150,135 Q145,100 100,105Z" fill="url(#galloBody)" stroke="#8b4513" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Breast feather detail -->
+    <path d="M80,140 Q100,130 120,140" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.6"/>
+    <path d="M78,155 Q100,145 122,155" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.6"/>
+    <path d="M76,170 Q100,160 124,170" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.6"/>
+    <!-- Wing -->
+    <path d="M125,130 Q145,125 155,145 Q160,165 145,175 Q130,180 120,170 Q115,155 125,130Z" fill="#d35400" stroke="#8b4513" stroke-width="2" stroke-linecap="round"/>
+    <path d="M130,140 Q140,138 145,148" fill="none" stroke="#e67e22" stroke-width="1.5"/>
+    <path d="M128,155 Q140,152 148,160" fill="none" stroke="#e67e22" stroke-width="1.5"/>
+    <!-- Head -->
+    <circle cx="92" cy="108" r="14" fill="#f5cba7" stroke="#8b4513" stroke-width="2.5"/>
+    <!-- Comb -->
+    <path d="M82,98 Q80,80 88,75 Q92,82 95,72 Q98,82 102,75 Q105,82 108,78 Q112,85 115,98" fill="url(#galloComb)" stroke="#8b0000" stroke-width="1.5"/>
+    <!-- Eye -->
+    <circle cx="96" cy="105" r="3.5" fill="#2c1810"/>
+    <circle cx="97" cy="103.5" r="1.5" fill="#fff"/>
+    <!-- Beak -->
+    <path d="M82,112 L72,108 L74,115Z" fill="#f39c12" stroke="#8b4513" stroke-width="1.5"/>
+    <!-- Wattle -->
+    <path d="M82,118 Q78,130 82,135 Q86,130 84,118" fill="#c0392b" stroke="#8b0000" stroke-width="1"/>
+    <!-- Tail feathers -->
+    <path d="M140,145 Q165,115 175,85 Q170,120 150,148" fill="url(#galloTail)" stroke="#0e2f44" stroke-width="2"/>
+    <path d="M142,155 Q170,130 185,105 Q178,140 155,158" fill="#1a5276" stroke="#0e2f44" stroke-width="2"/>
+    <path d="M138,165 Q162,145 178,125 Q172,158 148,170" fill="#1a5276" stroke="#0e2f44" stroke-width="2"/>
+    <path d="M135,175 Q155,160 168,145 Q165,170 142,180" fill="#0e2f44" stroke="#0a1f33" stroke-width="1.5"/>
+    <!-- Legs -->
+    <line x1="90" y1="220" x2="88" y2="250" stroke="#d4a017" stroke-width="3" stroke-linecap="round"/>
+    <line x1="110" y1="220" x2="112" y2="250" stroke="#d4a017" stroke-width="3" stroke-linecap="round"/>
+    <!-- Feet -->
+    <path d="M80,250 L88,250 L92,258" fill="none" stroke="#d4a017" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M88,250 L85,260" fill="none" stroke="#d4a017" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M120,250 L112,250 L108,258" fill="none" stroke="#d4a017" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M112,250 L115,260" fill="none" stroke="#d4a017" stroke-width="2.5" stroke-linecap="round"/>
   `,
 
   diablo: `
@@ -46,22 +76,62 @@ export const ILLUSTRATIONS = {
   `,
 
   dama: `
-    <path d="M85,80 Q65,78 60,90 L58,105 Q55,120 65,130 L70,195 Q72,210 80,215 L120,215 Q128,210 130,195 L135,130 Q145,120 142,105 L140,90 Q135,78 115,80Z" fill="#e74c3c" ${S}/>
-    <path d="M85,80 Q88,65 100,60 Q112,65 115,80" fill="#f5cba7" ${S}/>
-    <path d="M90,75 Q100,70 110,75" fill="none" ${S1}/>
-    <circle cx="90" cy="90" r="3" fill="#2c1810"/>
-    <circle cx="110" cy="90" r="3" fill="#2c1810"/>
-    <path d="M92,100 Q100,108 108,100" fill="none" ${S1}/>
-    <path d="M82,130 Q100,140 118,130" fill="none" ${S1}/>
-    <rect x="90" y="175" width="20" height="25" rx="2" fill="#f5cba7" ${S}/>
-    <path d="M100,200 L100,215" fill="none" ${S1}/>
-    <line x1="90" y1="215" x2="85" y2="240" ${S1}/>
-    <line x1="110" y1="215" x2="115" y2="240" ${S1}/>
-    <path d="M80,240 L85,245 L90,238" fill="none" ${S1}/>
-    <path d="M110,238 L115,245 L120,240" fill="none" ${S1}/>
-    <path d="M60,115 L75,125 L70,105Z" fill="#f39c12" ${S}/>
-    <path d="M140,115 L125,125 L130,105Z" fill="#f39c12" ${S}/>
-    <path d="M95,55 Q100,48 105,55" fill="none" ${S1}/>
+    <defs>
+      <linearGradient id="damaDress" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e74c3c"/>
+        <stop offset="100%" stop-color="#922b21"/>
+      </linearGradient>
+      <linearGradient id="damaSkin" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fdebd0"/>
+        <stop offset="100%" stop-color="#f5cba7"/>
+      </linearGradient>
+    </defs>
+    <!-- Dress / body -->
+    <path d="M75,110 Q60,108 55,125 L52,145 Q48,165 60,178 L65,210 Q68,222 80,225 L120,225 Q132,222 135,210 L140,178 Q152,165 148,145 L145,125 Q140,108 125,110Z" fill="url(#damaDress)" stroke="#922b21" stroke-width="2.5"/>
+    <!-- Dress details -->
+    <path d="M75,140 Q100,130 125,140" fill="none" stroke="#c0392b" stroke-width="1.5" opacity="0.5"/>
+    <path d="M72,160 Q100,148 128,160" fill="none" stroke="#c0392b" stroke-width="1.5" opacity="0.5"/>
+    <path d="M68,180 Q100,168 132,180" fill="none" stroke="#c0392b" stroke-width="1.5" opacity="0.5"/>
+    <!-- Collar / neckline -->
+    <path d="M80,115 Q100,125 120,115" fill="none" stroke="#f1c40f" stroke-width="2"/>
+    <!-- Neck -->
+    <rect x="92" y="85" width="16" height="28" rx="4" fill="url(#damaSkin)" stroke="#d4a574" stroke-width="1.5"/>
+    <!-- Head -->
+    <ellipse cx="100" cy="72" rx="20" ry="22" fill="url(#damaSkin)" stroke="#d4a574" stroke-width="2"/>
+    <!-- Hair -->
+    <path d="M80,65 Q78,45 90,38 Q100,32 110,38 Q122,45 120,65 Q115,55 100,52 Q85,55 80,65Z" fill="#2c1810" stroke="#1a0f0a" stroke-width="1.5"/>
+    <path d="M80,65 Q75,75 78,85" fill="#2c1810" stroke="#1a0f0a" stroke-width="1"/>
+    <path d="M120,65 Q125,75 122,85" fill="#2c1810" stroke="#1a0f0a" stroke-width="1"/>
+    <!-- Hair ornament -->
+    <circle cx="100" cy="42" r="5" fill="#f1c40f" stroke="#d4a017" stroke-width="1.5"/>
+    <circle cx="100" cy="42" r="2" fill="#c0392b"/>
+    <!-- Eyes -->
+    <ellipse cx="90" cy="70" rx="3.5" ry="4" fill="#2c1810"/>
+    <ellipse cx="110" cy="70" rx="3.5" ry="4" fill="#2c1810"/>
+    <circle cx="91" cy="68.5" r="1.5" fill="#fff"/>
+    <circle cx="111" cy="68.5" r="1.5" fill="#fff"/>
+    <!-- Eyebrows -->
+    <path d="M84,63 Q90,60 96,63" fill="none" stroke="#2c1810" stroke-width="1.5"/>
+    <path d="M104,63 Q110,60 116,63" fill="none" stroke="#2c1810" stroke-width="1.5"/>
+    <!-- Nose -->
+    <path d="M100,72 L98,78 Q100,80 102,78Z" fill="#d4a574" stroke="none"/>
+    <!-- Mouth -->
+    <path d="M92,84 Q100,90 108,84" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+    <!-- Blush -->
+    <ellipse cx="84" cy="80" rx="5" ry="3" fill="#e74c3c" opacity="0.2"/>
+    <ellipse cx="116" cy="80" rx="5" ry="3" fill="#e74c3c" opacity="0.2"/>
+    <!-- Arms / sleeves -->
+    <path d="M55,130 Q40,145 38,165 Q42,170 48,162 Q52,150 58,140" fill="url(#damaDress)" stroke="#922b21" stroke-width="2"/>
+    <path d="M145,130 Q160,145 162,165 Q158,170 152,162 Q148,150 142,140" fill="url(#damaDress)" stroke="#922b21" stroke-width="2"/>
+    <!-- Hands -->
+    <ellipse cx="40" cy="168" rx="7" ry="6" fill="url(#damaSkin)" stroke="#d4a574" stroke-width="1.5"/>
+    <ellipse cx="160" cy="168" rx="7" ry="6" fill="url(#damaSkin)" stroke="#d4a574" stroke-width="1.5"/>
+    <!-- Fan (in hand) -->
+    <path d="M148,165 Q165,150 172,135 Q168,145 160,155 Q155,162 148,165Z" fill="#f39c12" stroke="#d4a017" stroke-width="1.5"/>
+    <path d="M150,162 Q162,150 168,140" fill="none" stroke="#d4a017" stroke-width="1"/>
+    <!-- Feet -->
+    <path d="M85,225 L82,245 Q88,250 94,245 L90,225" fill="#2c1810" stroke="#1a0f0a" stroke-width="1.5"/>
+    <path d="M110,225 L106,245 Q112,250 118,245 L115,225" fill="#2c1810" stroke="#1a0f0a" stroke-width="1.5"/>
   `,
 
   catrin: `
@@ -500,13 +570,32 @@ export const ILLUSTRATIONS = {
   `,
 
   corazon: `
-    <path d="M100,230 C30,160 5,100 35,60 C55,35 80,35 100,55 C120,35 145,35 165,60 C195,100 170,160 100,230Z" fill="#c0392b" ${S2}/>
-    <path d="M100,220 C40,155 18,100 42,65 C58,42 80,42 100,60 C120,42 142,42 158,65 C182,100 160,155 100,220Z" fill="#e74c3c" ${S1}/>
-    <path d="M100,210 C50,150 30,105 50,72 C62,52 82,50 100,68 C118,50 138,52 150,72 C170,105 150,150 100,210Z" fill="#c0392b" ${S1}/>
-    <path d="M80,100 Q100,85 120,100 Q100,120 80,100Z" fill="#fff" opacity="0.3"/>
-    <path d="M100,100 L100,155" fill="none" ${S1}/>
-    <path d="M85,130 Q100,140 115,130" fill="none" ${S1}/>
-    <path d="M90,150 Q100,158 110,150" fill="none" ${S1}/>
+    <defs>
+      <linearGradient id="heartGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e74c3c"/>
+        <stop offset="60%" stop-color="#c0392b"/>
+        <stop offset="100%" stop-color="#922b21"/>
+      </linearGradient>
+      <radialGradient id="heartShine" cx="0.35" cy="0.35" r="0.5">
+        <stop offset="0%" stop-color="#fff" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Main heart shape -->
+    <path d="M100,240 C25,170 -5,100 30,55 C50,28 80,28 100,50 C120,28 150,28 170,55 C205,100 175,170 100,240Z" fill="url(#heartGrad)" stroke="#922b21" stroke-width="3"/>
+    <!-- Inner highlight -->
+    <path d="M100,230 C35,165 12,100 40,60 C55,38 78,38 100,55 C122,38 145,38 160,60 C188,100 165,165 100,230Z" fill="url(#heartShine)"/>
+    <!-- Shine reflection -->
+    <ellipse cx="70" cy="85" rx="20" ry="25" fill="#fff" opacity="0.2" transform="rotate(-20,70,85)"/>
+    <!-- Veins / detail lines -->
+    <path d="M100,100 L100,180" fill="none" stroke="#922b21" stroke-width="2" opacity="0.6"/>
+    <path d="M100,130 L75,155" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.5"/>
+    <path d="M100,130 L125,155" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.5"/>
+    <path d="M100,155 L80,175" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.5"/>
+    <path d="M100,155 L120,175" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.5"/>
+    <!-- Decorative lines at bottom -->
+    <path d="M85,195 Q100,205 115,195" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.4"/>
+    <path d="M90,210 Q100,218 110,210" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.4"/>
   `,
 
   sandia: `
@@ -743,21 +832,61 @@ export const ILLUSTRATIONS = {
   `,
 
   nopal: `
-    <ellipse cx="100" cy="190" rx="55" ry="10" fill="#8b4513" ${S1}/>
-    <path d="M100,60 L100,190" fill="none" ${S1}/>
-    <ellipse cx="100" cy="120" rx="30" ry="55" fill="#27ae60" ${S2}/>
-    <ellipse cx="72" cy="150" rx="20" ry="35" fill="#2ecc71" ${S2}/>
-    <ellipse cx="128" cy="140" rx="18" ry="30" fill="#27ae60" ${S2}/>
-    <ellipse cx="90" cy="90" rx="15" ry="22" fill="#2ecc71" ${S2}/>
-    <ellipse cx="115" cy="85" rx="12" ry="18" fill="#27ae60" ${S2}/>
-    <path d="M100,60 L100,52" fill="none" ${S1}/>
-    <path d="M94,54 Q100,48 106,54" fill="none" ${S1}/>
-    <ellipse cx="100" cy="100" rx="4" ry="6" fill="#f39c12" ${S1}/>
-    <ellipse cx="72" cy="135" rx="3" ry="5" fill="#f39c12" ${S1}/>
-    <ellipse cx="128" cy="125" rx="3" ry="5" fill="#f39c12" ${S1}/>
-    <ellipse cx="90" cy="80" rx="3" ry="4" fill="#f39c12" ${S1}/>
-    <path d="M60,155 L50,160 Q45,165 48,168" fill="none" ${S1}/>
-    <path d="M140,150 L150,155 Q155,160 152,163" fill="none" ${S1}/>
+    <defs>
+      <linearGradient id="nopalGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2ecc71"/>
+        <stop offset="100%" stop-color="#1e8449"/>
+      </linearGradient>
+      <linearGradient id="nopalDark" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#27ae60"/>
+        <stop offset="100%" stop-color="#196f3d"/>
+      </linearGradient>
+    </defs>
+    <!-- Pot / base -->
+    <path d="M55,220 L60,250 Q100,265 140,250 L145,220Z" fill="#8b4513" stroke="#5d3a1a" stroke-width="2.5"/>
+    <path d="M55,220 L145,220" fill="none" stroke="#5d3a1a" stroke-width="2"/>
+    <ellipse cx="100" cy="220" rx="45" ry="6" fill="#a0522d" stroke="#5d3a1a" stroke-width="1.5"/>
+    <!-- Main pad (center) -->
+    <ellipse cx="100" cy="140" rx="32" ry="60" fill="url(#nopalGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <!-- Pad details - ridges -->
+    <path d="M100,85 L100,195" fill="none" stroke="#1e8449" stroke-width="1.5" opacity="0.5"/>
+    <path d="M88,100 Q100,95 112,100" fill="none" stroke="#1e8449" stroke-width="1" opacity="0.4"/>
+    <path d="M85,120 Q100,115 115,120" fill="none" stroke="#1e8449" stroke-width="1" opacity="0.4"/>
+    <path d="M83,140 Q100,135 117,140" fill="none" stroke="#1e8449" stroke-width="1" opacity="0.4"/>
+    <path d="M85,160 Q100,155 115,160" fill="none" stroke="#1e8449" stroke-width="1" opacity="0.4"/>
+    <path d="M88,180 Q100,175 112,180" fill="none" stroke="#1e8449" stroke-width="1" opacity="0.4"/>
+    <!-- Left pad -->
+    <ellipse cx="65" cy="160" rx="22" ry="38" fill="url(#nopalDark)" stroke="#196f3d" stroke-width="2.5" transform="rotate(-10,65,160)"/>
+    <path d="M65,125 L65,195" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.4"/>
+    <!-- Right pad -->
+    <ellipse cx="135" cy="150" rx="20" ry="35" fill="url(#nopalGrad)" stroke="#196f3d" stroke-width="2.5" transform="rotate(10,135,150)"/>
+    <path d="M135,118 L135,182" fill="none" stroke="#1e8449" stroke-width="1.5" opacity="0.4"/>
+    <!-- Small top pads -->
+    <ellipse cx="88" cy="88" rx="14" ry="20" fill="url(#nopalGrad)" stroke="#196f3d" stroke-width="2" transform="rotate(-5,88,88)"/>
+    <ellipse cx="115" cy="82" rx="12" ry="16" fill="url(#nopalDark)" stroke="#196f3d" stroke-width="2" transform="rotate(5,115,82)"/>
+    <!-- Spines / thorns -->
+    <line x1="78" y1="130" x2="72" y2="125" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="122" y1="130" x2="128" y2="125" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="80" y1="155" x2="74" y2="152" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="120" y1="150" x2="126" y2="147" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="95" y1="100" x2="90" y2="95" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="105" y1="95" x2="110" y2="90" stroke="#f1c40f" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Tuna fruits (prickly pear) -->
+    <ellipse cx="100" cy="72" rx="8" ry="10" fill="#c0392b" stroke="#922b21" stroke-width="1.5"/>
+    <ellipse cx="80" cy="80" rx="6" ry="8" fill="#e74c3c" stroke="#922b21" stroke-width="1.5"/>
+    <ellipse cx="120" cy="75" rx="7" ry="9" fill="#c0392b" stroke="#922b21" stroke-width="1.5"/>
+    <!-- Tuna highlights -->
+    <ellipse cx="98" cy="69" rx="2" ry="3" fill="#fff" opacity="0.3"/>
+    <ellipse cx="78" cy="77" rx="1.5" ry="2.5" fill="#fff" opacity="0.3"/>
+    <ellipse cx="118" cy="72" rx="2" ry="3" fill="#fff" opacity="0.3"/>
+    <!-- Tuna spines (tiny dots) -->
+    <circle cx="95" cy="74" r="0.8" fill="#f1c40f"/>
+    <circle cx="105" cy="76" r="0.8" fill="#f1c40f"/>
+    <circle cx="100" cy="68" r="0.8" fill="#f1c40f"/>
+    <circle cx="76" cy="82" r="0.8" fill="#f1c40f"/>
+    <circle cx="84" cy="78" r="0.8" fill="#f1c40f"/>
+    <circle cx="116" cy="77" r="0.8" fill="#f1c40f"/>
+    <circle cx="124" cy="73" r="0.8" fill="#f1c40f"/>
   `,
 
   alacran: `
@@ -880,26 +1009,54 @@ export const ILLUSTRATIONS = {
   `,
 
   sol: `
-    <circle cx="100" cy="115" r="35" fill="#f39c12" ${S2}/>
-    <circle cx="100" cy="115" r="28" fill="#f1c40f" ${S1}/>
-    <circle cx="100" cy="115" r="20" fill="#f39c12" ${S1}/>
-    <path d="M100,75 L100,55" fill="none" ${S2}/>
-    <path d="M100,155 L100,175" fill="none" ${S2}/>
-    <path d="M60,115 L40,115" fill="none" ${S2}/>
-    <path d="M140,115 L160,115" fill="none" ${S2}/>
-    <path d="M72,87 L58,73" fill="none" ${S2}/>
-    <path d="M128,87 L142,73" fill="none" ${S2}/>
-    <path d="M72,143 L58,157" fill="none" ${S2}/>
-    <path d="M128,143 L142,157" fill="none" ${S2}/>
-    <path d="M88,105 Q100,95 112,105" fill="none" ${S1}/>
-    <path d="M88,115 Q100,125 112,115" fill="none" ${S1}/>
-    <circle cx="90" cy="108" r="3" fill="#2c1810"/>
-    <circle cx="110" cy="108" r="3" fill="#2c1810"/>
-    <circle cx="91" cy="106" r="1.5" fill="#fff"/>
-    <circle cx="109" cy="106" r="1.5" fill="#fff"/>
-    <path d="M92,118 Q100,124 108,118" fill="none" ${S1}/>
-    <path d="M100,108 L100,118" fill="none" ${S1}/>
-    <circle cx="100" cy="132" r="6" fill="#f39c12" ${S1}/>
+    <defs>
+      <radialGradient id="sunGrad" cx="0.4" cy="0.4" r="0.6">
+        <stop offset="0%" stop-color="#f9e547"/>
+        <stop offset="50%" stop-color="#f1c40f"/>
+        <stop offset="100%" stop-color="#d4a017"/>
+      </radialGradient>
+      <linearGradient id="rayGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f1c40f"/>
+        <stop offset="100%" stop-color="#d4a017"/>
+      </linearGradient>
+    </defs>
+    <!-- Outer rays (large) -->
+    <polygon points="100,40 108,70 92,70" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="100,190 108,160 92,160" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="40,115 70,107 70,123" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="160,115 130,107 130,123" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="58,73 78,82 72,68" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="142,73 122,82 128,68" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="58,157 78,148 72,162" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="142,157 122,148 128,162" fill="url(#rayGrad)" stroke="#d4a017" stroke-width="1.5"/>
+    <!-- Small rays between -->
+    <polygon points="72,52 82,72 68,72" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="128,52 118,72 132,72" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="50,90 72,88 68,76" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="150,90 128,88 132,76" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="50,140 72,142 68,154" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="150,140 128,142 132,154" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="72,178 82,158 68,158" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <polygon points="128,178 118,158 132,158" fill="#f39c12" stroke="#d4a017" stroke-width="1" opacity="0.7"/>
+    <!-- Sun face circle -->
+    <circle cx="100" cy="115" r="40" fill="url(#sunGrad)" stroke="#d4a017" stroke-width="3"/>
+    <!-- Inner ring -->
+    <circle cx="100" cy="115" r="34" fill="none" stroke="#e67e22" stroke-width="1.5" opacity="0.5"/>
+    <!-- Eyes -->
+    <ellipse cx="87" cy="108" rx="5" ry="6" fill="#8b4513" stroke="#5d3a1a" stroke-width="1"/>
+    <ellipse cx="113" cy="108" rx="5" ry="6" fill="#8b4513" stroke="#5d3a1a" stroke-width="1"/>
+    <circle cx="88" cy="106" r="2" fill="#fff"/>
+    <circle cx="114" cy="106" r="2" fill="#fff"/>
+    <!-- Eyebrows -->
+    <path d="M78,98 Q87,93 96,98" fill="none" stroke="#8b4513" stroke-width="2" stroke-linecap="round"/>
+    <path d="M104,98 Q113,93 122,98" fill="none" stroke="#8b4513" stroke-width="2" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M100,112 L97,120 Q100,122 103,120Z" fill="#e67e22" stroke="none"/>
+    <!-- Smile -->
+    <path d="M82,130 Q100,145 118,130" fill="none" stroke="#8b4513" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Rosy cheeks -->
+    <ellipse cx="78" cy="125" rx="6" ry="4" fill="#e74c3c" opacity="0.25"/>
+    <ellipse cx="122" cy="125" rx="6" ry="4" fill="#e74c3c" opacity="0.25"/>
   `,
 
   corona: `
@@ -1029,29 +1186,57 @@ export const ILLUSTRATIONS = {
   `,
 
   rana: `
-    <ellipse cx="100" cy="150" rx="45" ry="30" fill="#27ae60" ${S2}/>
-    <ellipse cx="100" cy="155" rx="38" ry="22" fill="#2ecc71" ${S1}/>
-    <circle cx="78" cy="140" r="12" fill="#27ae60" ${S2}/>
-    <circle cx="122" cy="140" r="12" fill="#27ae60" ${S2}/>
-    <circle cx="78" cy="138" r="5" fill="#fff" ${S}/>
-    <circle cx="122" cy="138" r="5" fill="#fff" ${S}/>
-    <circle cx="80" cy="138" r="3" fill="#2c1810"/>
-    <circle cx="120" cy="138" r="3" fill="#2c1810"/>
-    <circle cx="81" cy="136" r="1.5" fill="#fff"/>
-    <circle cx="119" cy="136" r="1.5" fill="#fff"/>
-    <path d="M88,130 Q100,125 112,130" fill="none" ${S1}/>
-    <path d="M100,125 L100,118" fill="none" ${S1}/>
-    <path d="M96,118 L100,114 L104,118" fill="none" ${S1}/>
-    <path d="M72,145 Q68,155 72,162" fill="none" ${S1}/>
-    <path d="M128,145 Q132,155 128,162" fill="none" ${S1}/>
-    <path d="M60,155 Q50,150 48,158" fill="none" ${S1}/>
-    <path d="M140,155 Q150,150 152,158" fill="none" ${S1}/>
-    <line x1="60" y1="170" x2="55" y2="185" ${S1}/>
-    <line x1="140" y1="170" x2="145" y2="185" ${S1}/>
-    <path d="M65,175 Q60,185 62,195" fill="none" ${S1}/>
-    <path d="M135,175 Q140,185 138,195" fill="none" ${S1}/>
-    <path d="M85,170 Q100,180 115,170" fill="none" ${S1}/>
-    <ellipse cx="100" cy="175" rx="15" ry="5" fill="#f5e6ca" ${S1}/>
-    <path d="M95,173 L105,173" fill="none" ${S1}/>
+    <defs>
+      <linearGradient id="ranaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2ecc71"/>
+        <stop offset="100%" stop-color="#1e8449"/>
+      </linearGradient>
+      <linearGradient id="ranaBelly" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#abebc6"/>
+        <stop offset="100%" stop-color="#82e0aa"/>
+      </linearGradient>
+    </defs>
+    <!-- Back legs -->
+    <path d="M55,175 Q35,180 28,195 Q25,210 35,218 Q45,222 52,215 Q58,208 55,195" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <path d="M145,175 Q165,180 172,195 Q175,210 165,218 Q155,222 148,215 Q142,208 145,195" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <!-- Back feet -->
+    <path d="M28,218 L20,228 L30,225 L25,235 L35,228 L32,238 L40,228" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M172,218 L180,228 L170,225 L175,235 L165,228 L168,238 L160,228" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Body -->
+    <ellipse cx="100" cy="155" rx="50" ry="35" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="3"/>
+    <!-- Belly -->
+    <ellipse cx="100" cy="162" rx="35" ry="22" fill="url(#ranaBelly)" stroke="#1e8449" stroke-width="1.5"/>
+    <!-- Belly pattern -->
+    <path d="M80,155 Q100,148 120,155" fill="none" stroke="#82e0aa" stroke-width="1" opacity="0.5"/>
+    <path d="M82,165 Q100,158 118,165" fill="none" stroke="#82e0aa" stroke-width="1" opacity="0.5"/>
+    <!-- Front legs -->
+    <path d="M60,165 Q45,170 40,182 Q38,192 48,195 Q55,196 58,188 Q60,180 58,170" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <path d="M140,165 Q155,170 160,182 Q162,192 152,195 Q145,196 142,188 Q140,180 142,170" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <!-- Front feet -->
+    <path d="M40,195 L32,205 L42,202 L38,212 L48,205" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M160,195 L168,205 L158,202 L162,212 L152,205" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Eye bumps -->
+    <circle cx="78" cy="120" r="16" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <circle cx="122" cy="120" r="16" fill="url(#ranaGrad)" stroke="#196f3d" stroke-width="2.5"/>
+    <!-- Eyes -->
+    <circle cx="78" cy="118" r="10" fill="#fff" stroke="#196f3d" stroke-width="2"/>
+    <circle cx="122" cy="118" r="10" fill="#fff" stroke="#196f3d" stroke-width="2"/>
+    <ellipse cx="80" cy="118" rx="5" ry="6" fill="#2c1810"/>
+    <ellipse cx="120" cy="118" rx="5" ry="6" fill="#2c1810"/>
+    <circle cx="82" cy="116" r="2.5" fill="#fff"/>
+    <circle cx="118" cy="116" r="2.5" fill="#fff"/>
+    <!-- Nostrils -->
+    <circle cx="92" cy="132" r="2" fill="#196f3d"/>
+    <circle cx="108" cy="132" r="2" fill="#196f3d"/>
+    <!-- Mouth -->
+    <path d="M75,142 Q100,155 125,142" fill="none" stroke="#196f3d" stroke-width="2" stroke-linecap="round"/>
+    <!-- Spots on body -->
+    <circle cx="75" cy="155" r="4" fill="#1e8449" opacity="0.5"/>
+    <circle cx="125" cy="155" r="4" fill="#1e8449" opacity="0.5"/>
+    <circle cx="90" cy="170" r="3" fill="#1e8449" opacity="0.5"/>
+    <circle cx="110" cy="170" r="3" fill="#1e8449" opacity="0.5"/>
+    <!-- Tongue (playful) -->
+    <path d="M100,148 Q100,160 95,170 Q90,178 85,175" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="85" cy="175" r="3" fill="#c0392b"/>
   `,
 };
