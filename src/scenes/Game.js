@@ -532,6 +532,9 @@ export default class Game extends Phaser.Scene {
     this.isRunning = true;
     this.isPaused = false;
 
+    // iOS: speak first card from gesture context to unlock speechSynthesis
+    this.speak(this.deck[0].name);
+
     this.historyContainer.removeAll(true);
     this.historyContainer.y = this.panelY + this.panelPadding + 20;
 
@@ -621,7 +624,9 @@ export default class Game extends Phaser.Scene {
       const card = this.deck[this.currentIndex];
       this.cardName.setText(card.name);
       this.playBeep();
-      this.speak(card.name);
+      if (this.currentIndex > 0) {
+        this.speak(card.name);
+      }
 
       const textureKey = `card_${card.id}`;
       if (this.textures.exists(textureKey)) {
