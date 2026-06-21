@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { CardLoader } from '../cardLoader.js';
 import { CARDS } from '../cards.js';
 
@@ -18,20 +18,8 @@ describe('CardLoader', () => {
   let loader;
 
   beforeEach(() => {
-    vi.stubGlobal('window', { devicePixelRatio: 1 });
-    vi.stubGlobal('navigator', { userAgent: 'Mozilla/5.0' });
     scene = createMockScene();
     loader = new CardLoader(scene);
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it('debe usar 240x360 en resolución normal', () => {
-    const size = loader.getCardSize();
-    expect(size.width).toBe(240);
-    expect(size.height).toBe(360);
   });
 
   it('debe llamar onComplete inmediatamente si la textura existe', () => {
@@ -104,22 +92,5 @@ describe('CardLoader', () => {
     loadErrorCb[1]({ key: 'card_other' });
 
     expect(onComplete).not.toHaveBeenCalled();
-  });
-
-  it('debe usar 480x720 en high DPI desktop', () => {
-    globalThis.window.devicePixelRatio = 2;
-    const hdLoader = new CardLoader(scene);
-    const size = hdLoader.getCardSize();
-    expect(size.width).toBe(480);
-    expect(size.height).toBe(720);
-  });
-
-  it('debe usar 240x360 en high DPI mobile', () => {
-    globalThis.window.devicePixelRatio = 2;
-    vi.stubGlobal('navigator', { userAgent: 'Mobi/Android' });
-    const mobileLoader = new CardLoader(scene);
-    const size = mobileLoader.getCardSize();
-    expect(size.width).toBe(240);
-    expect(size.height).toBe(360);
   });
 });

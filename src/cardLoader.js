@@ -4,15 +4,6 @@ export class CardLoader {
   constructor(scene) {
     this.scene = scene;
     this.loading = new Set();
-    this.isHighDPI = typeof window !== 'undefined' && window.devicePixelRatio > 1;
-    this.isMobile = typeof navigator !== 'undefined' && /Mobi|Android/i.test(navigator.userAgent);
-  }
-
-  getCardSize() {
-    if (this.isHighDPI && !this.isMobile) {
-      return { width: 480, height: 720 };
-    }
-    return { width: 240, height: 360 };
   }
 
   loadCard(cardData, onComplete) {
@@ -51,10 +42,9 @@ export class CardLoader {
     }
 
     try {
-      const { width, height } = this.getCardSize();
       const imagePath = `assets/cards/${file}`;
 
-      this.scene.load.image(key, imagePath, { width, height });
+      this.scene.load.image(key, imagePath);
 
       this.scene.load.once(`filecomplete-image-${key}`, () => {
         clearTimeout(timeoutId);
