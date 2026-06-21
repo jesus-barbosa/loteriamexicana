@@ -251,6 +251,10 @@ class MockAudioCtx {
     this.destination = {};
   }
   resume() { return Promise.resolve(); }
+  decodeAudioData(_data, success) {
+    success({ duration: 0.5, numberOfChannels: 1, sampleRate: 22050 });
+    return Promise.resolve();
+  }
   createOscillator() {
     return {
       connect: vi.fn(),

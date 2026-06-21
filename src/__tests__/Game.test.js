@@ -1,6 +1,16 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Game from '../scenes/Game.js';
 import { CARDS } from '../cards.js';
+import meSpeak from 'mespeak';
+
+vi.mock('mespeak', () => ({
+  default: {
+    speak: vi.fn(() => new ArrayBuffer(1024)),
+    loadConfig: vi.fn(),
+    loadVoice: vi.fn(),
+    resetQueue: vi.fn(),
+  },
+}));
 
 const COLORS = {
   accent: 0xe74c3c,
@@ -139,36 +149,29 @@ describe('Game Scene', () => {
   });
 
   describe('speak', () => {
-    it('debe usar speechSynthesis si está disponible', () => {
-      scene.speak('El Gallo');
-      expect(globalThis.speechSynthesis.speak).toHaveBeenCalled();
+    beforeEach(() => {
+      scene.beepCtx = {
+        decodeAudioData: vi.fn((_data, success) => success({ duration: 0.5 })),
+        createBufferSource: vi.fn(() => ({
+          connect: vi.fn(),
+          start: vi.fn(),
+        })),
+      };
     });
 
-    it('debe configurar idioma es-MX', () => {
-      globalThis.speechSynthesis.speak.mockClear();
+    it('debe usar meSpeak.speak con el texto', () => {
       scene.speak('El Gallo');
-      const utter = globalThis.speechSynthesis.speak.mock.calls[0][0];
-      expect(utter.lang).toBe('es-MX');
-      expect(utter.rate).toBe(0.9);
+      expect(meSpeak.speak).toHaveBeenCalledWith('El Gallo', { rawdata: true });
     });
 
-    it('debe seleccionar voz es-MX si está disponible', () => {
-      globalThis.speechSynthesis.speak.mockClear();
+    it('debe decodificar audio en beepCtx', () => {
       scene.speak('El Gallo');
-      const utter = globalThis.speechSynthesis.speak.mock.calls[0][0];
-      expect(utter.voice.lang).toBe('es-MX');
+      expect(scene.beepCtx.decodeAudioData).toHaveBeenCalled();
     });
 
-    it('debe obtener las voces con getVoices', () => {
-      scene.speak('El Gallo');
-      expect(globalThis.speechSynthesis.getVoices).toHaveBeenCalled();
-    });
-
-    it('no debe fallar si speechSynthesis no existe', () => {
-      const original = globalThis.speechSynthesis;
-      delete globalThis.speechSynthesis;
+    it('no debe fallar si beepCtx no existe', () => {
+      scene.beepCtx = null;
       expect(() => scene.speak('test')).not.toThrow();
-      globalThis.speechSynthesis = original;
     });
   });
 

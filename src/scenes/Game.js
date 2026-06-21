@@ -1,5 +1,11 @@
 import { CARDS } from '../cards.js';
 import { CardLoader } from '../cardLoader.js';
+import meSpeak from 'mespeak';
+import mespeakConfig from 'mespeak/src/mespeak_config.json';
+import esVoice from 'mespeak/voices/es-la.json';
+
+meSpeak.loadConfig(mespeakConfig);
+meSpeak.loadVoice(esVoice);
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 
@@ -496,17 +502,17 @@ export default class Game extends Phaser.Scene {
   }
 
   speak(text) {
-    if (!window.speechSynthesis) return;
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'es-MX';
-    utter.rate = 0.9;
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      utter.voice = voices.find(v => v.lang.startsWith('es-MX'))
-        || voices.find(v => v.lang.startsWith('es'))
-        || null;
-    }
-    window.speechSynthesis.speak(utter);
+    if (!this.beepCtx) return;
+    try {
+      const rawData = meSpeak.speak(text, { rawdata: true });
+      if (!rawData) return;
+      this.beepCtx.decodeAudioData(rawData, (buffer) => {
+        const source = this.beepCtx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(this.beepCtx.destination);
+        source.start(0);
+      }, () => {});
+    } catch (_) {}
   }
 
   shuffleDeck(deck) {
@@ -531,9 +537,6 @@ export default class Game extends Phaser.Scene {
     this.drawnCards = [];
     this.isRunning = true;
     this.isPaused = false;
-
-    // iOS: speak first card from gesture context to unlock speechSynthesis
-    this.speak(this.deck[0].name);
 
     this.historyContainer.removeAll(true);
     this.historyContainer.y = this.panelY + this.panelPadding + 20;
@@ -624,9 +627,7 @@ export default class Game extends Phaser.Scene {
       const card = this.deck[this.currentIndex];
       this.cardName.setText(card.name);
       this.playBeep();
-      if (this.currentIndex > 0) {
-        this.speak(card.name);
-      }
+      this.speak(card.name);
 
       const textureKey = `card_${card.id}`;
       if (this.textures.exists(textureKey)) {
@@ -734,9 +735,7 @@ export default class Game extends Phaser.Scene {
     this.timer = null;
     }
 
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-    }
+    meSpeak.resetQueue();
 
     this.startBg.setFillStyle(COLORS.accent).setInteractive({ useHandCursor: true });
 
