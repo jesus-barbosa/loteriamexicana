@@ -38,7 +38,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = w * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const titleSize = Math.min(90, Math.floor(this.gameAreaW / 5));
+    const titleSize = Math.min(90, Math.floor(w / 5));
     const btnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const btnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const btnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -101,7 +101,7 @@ export default class Game extends Phaser.Scene {
     this.cardBorder.setStrokeStyle(3, COLORS.gold, 0.6);
 
     this.card = this.add.image(this.gameCx, cy - 30, 'loteria_default');
-    this.card.setScale(0.45);
+    this.card.setScale(2/3);
 
     // Sombra de la carta
     this.cardShadow = this.add.rectangle(this.gameCx + 4, cy - 26, 150, 230, 0x000000, 0.3);
@@ -299,8 +299,8 @@ export default class Game extends Phaser.Scene {
     this.shuffleCard();
     this.tweens.add({
       targets: this.card,
-      scaleX: { from: 0.3, to: 0.45 },
-      scaleY: { from: 0.3, to: 0.45 },
+      scaleX: { from: 0.3, to: 2/3 },
+      scaleY: { from: 0.3, to: 2/3 },
       alpha: { from: 0, to: 1 },
       duration: 400,
       ease: 'Back.easeOut',
@@ -321,22 +321,22 @@ export default class Game extends Phaser.Scene {
 
   drawDefaultCard() {
     if (this.textures.exists('loteria_default')) return;
-    const w = 160;
-    const h = 240;
+    const w = 240;
+    const h = 360;
     const g = this.add.graphics();
     g.fillStyle(0x8B0000, 1);
     g.fillRect(0, 0, w, h);
     g.lineStyle(4, 0xDAA520, 1);
     g.strokeRect(2, 2, w - 4, h - 4);
     g.lineStyle(2, 0xDAA520, 0.5);
-    g.strokeRect(10, 10, w - 20, h - 20);
+    g.strokeRect(15, 15, w - 30, h - 30);
     g.fillStyle(0xDAA520, 0.3);
-    g.fillTriangle(w / 2, h / 2 - 35, w / 2 - 30, h / 2, w / 2 + 30, h / 2);
-    g.fillTriangle(w / 2, h / 2 + 35, w / 2 - 30, h / 2, w / 2 + 30, h / 2);
+    g.fillTriangle(w / 2, h / 2 - 50, w / 2 - 45, h / 2, w / 2 + 45, h / 2);
+    g.fillTriangle(w / 2, h / 2 + 50, w / 2 - 45, h / 2, w / 2 + 45, h / 2);
     g.fillStyle(0xDAA520, 0.15);
-    g.fillRect(30, 20, w - 60, h - 40);
+    g.fillRect(45, 30, w - 90, h - 60);
     g.lineStyle(1, 0xDAA520, 0.2);
-    g.strokeRect(30, 20, w - 60, h - 40);
+    g.strokeRect(45, 30, w - 90, h - 60);
     g.generateTexture('loteria_default', w, h);
     g.destroy();
   }
@@ -368,7 +368,7 @@ export default class Game extends Phaser.Scene {
     this.panelW = newW * 0.4;
     this.gameCx = this.gameAreaW / 2;
 
-    const newTitleSize = Math.min(90, Math.floor(this.gameAreaW / 5));
+    const newTitleSize = Math.min(90, Math.floor(newW / 5));
     const newBtnTextSize = Math.min(20, Math.floor(this.gameAreaW / 32));
     const newBtnWidth = Math.min(180, Math.floor(this.gameAreaW / 3.5));
     const newBtnHeight = Math.min(48, Math.floor(this.gameAreaW / 14));
@@ -466,7 +466,7 @@ export default class Game extends Phaser.Scene {
   animateCardChange() {
     this.tweens.add({
       targets: this.card,
-      scaleX: { from: 0.45, to: 0.35 },
+      scaleX: { from: 2/3, to: 0.5 },
       duration: 100,
       yoyo: true,
       ease: 'Power2',
